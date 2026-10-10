@@ -1,0 +1,13 @@
+{
+  "name": "salon",
+  "version": "0.1.0",
+  "description": "Run your beauty salon on SALON from Claude: bookings, the menu and the professionals, clients and their portfolio, sales, and WhatsApp outreach that a person sends — through the Salon connector (mcp.salon.now).",
+  "author": {
+    "name": "SALON NOW INC",
+    "url": "https://salon.mx"
+  },
+  "homepage": "https://salon.mx",
+  "repository": "https://github.com/salonnow/salon-plugin",
+  "license": "Apache-2.0",
+  "keywords": ["salon", "beauty", "bookings", "clients", "whatsapp", "mcp"]
+}

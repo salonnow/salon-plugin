@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "salon": {
+      "type": "http",
+      "url": "https://mcp.salon.now/mcp"
+    }
+  }
+}
