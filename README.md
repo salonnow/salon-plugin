@@ -41,6 +41,11 @@ decided by the salon's owner in the SALON app.
 - Every write — a booking, a cancellation, a menu change, a new client, a queued message — is
   read back to you and happens only after you say yes.
 
+## Support
+
+Write to **soporte@salon.now** (or support@salon.now). To cut the connection, revoke it in
+Claude's connector settings or write to the same address and it is removed the same day.
+
 ## Licence and trademarks
 
 Licensed under the Apache License, Version 2.0 — see `LICENSE`. The names SALON and SALON NOW,
