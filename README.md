@@ -41,6 +41,20 @@ decided by the salon's owner in the SALON app.
 - Every write — a booking, a cancellation, a menu change, a new client, a queued message — is
   read back to you and happens only after you say yes.
 
+## The OpenAI package (`openai/`)
+
+The same connector and the same skill go to ChatGPT's plugin directory as a ZIP in OpenAI's own
+layout. The repo root stays the Claude plugin (Claude reads `.claude-plugin/plugin.json` at the
+root); the `openai/` folder holds only what OpenAI adds — `plugin.json` (the Agent Plugins
+manifest with the listing, the review test cases and the publication fields under
+`extensions.com.openai`), `mcp.json` (the one remote server, OAuth with dynamic client
+registration) and `assets/` (the SALON mark). The skill is **not** copied there: it lives once,
+at the root `skills/`, and `openai/build-zip.sh` assembles `dist/salon-openai-<version>.zip`
+from the folder plus the root skill. The script refuses when the two manifests disagree on the
+version — one public version (the connector's `CONNECTOR_VERSION`, this manifest, the OpenAI
+manifest), bumped together. Reviewer credentials and the demo video URL are typed in OpenAI's
+dashboard; the ZIP never carries credentials.
+
 ## Support
 
 Write to **soporte@salon.now** (or support@salon.now). To cut the connection, revoke it in
