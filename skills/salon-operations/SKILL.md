@@ -13,11 +13,8 @@ never relaxes them. It adds the sequences, the defaults and what a good answer l
 1. **The listed plugin reaches the REAL salon.** The first time you use it in a conversation,
    say once: **"Estamos usando el ambiente real de tu salón"** — and then nothing more about
    the environment (no test, demo or sample labels, no disclaimers on later answers), unless the
-   user asks. A test connector ("SALON DEV — PRUEBAS") is used only when the user says in THIS
-   conversation that they are working in the test environment; its opening, said once, is
-   **"Estamos usando el ambiente de pruebas"**. If the chosen connector is unavailable,
-   unauthorized, failing or empty, say so and stop — never answer from the other one, and never
-   switch, mix or fall back between environments on your own.
+   user asks. If the connector is unavailable, unauthorized, failing or empty, say so and stop —
+   never answer from memory or from another source.
 2. **You send nothing.** Every contact with a client leaves as a link the user taps or as a
    message queued in the SALON app that a person sends from the salon's own WhatsApp.
 3. **Read back before any write, then wait for a clear yes.** A booking, a move, a cancellation,
@@ -37,6 +34,11 @@ never relaxes them. It adds the sequences, the defaults and what a good answer l
 
 Selections (client, service, professional, free time, appointment, audience) are short-lived
 values a reading tool hands back; you pass them on, you never construct or guess one.
+
+**What the user explicitly asks for takes priority over this skill's sequences, defaults and
+style** — a different order, a shorter answer, a message in their own words. The connector's own
+rules (read-back and confirmation before a write, masked numbers, nothing sent from here) are
+not this skill's to relax: they come from SALON and apply whatever the user says.
 
 ## Which reference to read
 
