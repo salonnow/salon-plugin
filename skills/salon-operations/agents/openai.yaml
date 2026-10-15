@@ -1,0 +1,9 @@
+# OpenAI plugin metadata for this skill: the MCP server it needs. A dependency makes the
+# connector available to the model; the workflow itself is SKILL.md and its references.
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "salon"
+      description: "The SALON connector: the salon's bookings, menu, clients, sales and WhatsApp queue"
+      transport: "streamable_http"
+      url: "https://mcp.salon.now/mcp"
