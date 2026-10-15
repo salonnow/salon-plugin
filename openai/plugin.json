@@ -1,0 +1,108 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "salon",
+  "version": "1.0.2",
+  "description": "Run your beauty salon on SALON from ChatGPT: bookings, the menu and the professionals, clients and their portfolio, sales, and WhatsApp outreach that a person sends — through the Salon connector (mcp.salon.now).",
+  "author": {
+    "name": "SALON NOW INC",
+    "url": "https://salon.mx"
+  },
+  "homepage": "https://salon.mx",
+  "repository": "https://github.com/salonnow/salon-plugin",
+  "license": "Apache-2.0",
+  "keywords": [
+    "salon",
+    "beauty",
+    "bookings",
+    "clients",
+    "whatsapp",
+    "mcp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Salon",
+        "shortDescription": "Tu salón de belleza, por voz",
+        "longDescription": "Salon conecta tu salón de belleza en SALON con ChatGPT. Pregunta por voz o por texto cuánto vendiste el mes pasado y cuánto llevas hoy, qué citas tienes mañana, quiénes son tus mejores clientas y quién cumple años esta semana. Agenda, mueve, confirma y cancela citas; agrega o actualiza clientas; cambia precios y duraciones de tu menú; asigna servicios a tus profesionales. Pide mensajes de WhatsApp personalizados para clientas que no han vuelto o para huecos en la agenda: el asistente los escribe y una persona de tu salón los envía desde el WhatsApp del salón — el conector nunca envía nada por sí mismo. Cada cambio se te lee de vuelta y ocurre solo cuando dices que sí. Los teléfonos que vienen de SALON se muestran enmascarados. Funciona con tu cuenta de SALON y con los permisos que tu salón ya te dio. Requiere una cuenta de SALON (salon.mx). Soporte: soporte@salon.now.",
+        "developerName": "SALON NOW INC",
+        "category": "Productivity",
+        "capabilities": [
+          "Citas y reservas: agenda, horas libres, agendar, mover, confirmar, cancelar",
+          "Menú de servicios y asignación de profesionales",
+          "Clientes: alta, cambios, etiquetas, cartera, mejores clientes, cumpleaños",
+          "Ventas: meses cerrados y el día de hoy en vivo",
+          "Mensajes de WhatsApp escritos por el asistente y enviados por una persona del salón"
+        ],
+        "websiteURL": "https://salon.mx",
+        "privacyPolicyURL": "https://legal.salon.now/legal/tyc-usuarios/base/1.0.002?lang=es",
+        "termsOfServiceURL": "https://legal.salon.now/legal/tyc-salones/base/1.0.002?lang=es",
+        "defaultPrompt": [
+          "¿Cuánto vendí el mes pasado y cómo va este?",
+          "Agéndale una cita a una clienta para mañana",
+          "¿Qué clientas no han vuelto y a quién le escribo esta semana?"
+        ],
+        "brandColor": "#ff0051",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Last month's sales, stated with its window and currency",
+              "prompt": "¿Cuánto vendí el mes pasado en Salón Demo Centro?",
+              "tools_triggered": "list_salons, get_monthly_sales",
+              "expected_behavior": "The assistant names the salon, asks get_monthly_sales for the whole previous month, and answers the month total in MXN with the window it covers (data_through), the best week, and no figure from today's open shift. No cross-currency sum (one salon). After the first 'Estamos usando el ambiente real de tu salón' it adds no environment disclaimer."
+            },
+            {
+              "description": "Tomorrow's agenda, in the salon's own day",
+              "prompt": "¿Qué citas tengo mañana?",
+              "tools_triggered": "list_salons, get_bookings",
+              "expected_behavior": "The list for tomorrow in America/Mexico_City: client first name, service, professional, time, status (pending or confirmed), and the counts from summary. No phone numbers. If the answer carries truncated, the assistant says the list may be incomplete."
+            },
+            {
+              "description": "Book an appointment: lookup chain, read-back, explicit yes, pending booking",
+              "prompt": "Agéndale a Beatriz Pérez mañana a las 4 de la tarde manicure con Sofía",
+              "tools_triggered": "search_client, search_services, list_staff, check_availability, create_booking",
+              "expected_behavior": "Finds Beatriz, the manicure service and Sofía; checks free times; reads the appointment back (client, day, time, service with price, professional, salon by name) and asks exactly '¿Me confirmas si está correcto para agendar la cita?'; books only after a clear yes, once; reports the returned status as pending, not confirmed. If 16:00 is taken, offers the nearest free times with Sofía instead of inventing one."
+            },
+            {
+              "description": "Cancel an appointment: find, read-back, explicit confirmation, cancelled",
+              "prompt": "Cancela la cita de Beatriz Pérez de mañana, se enfermó",
+              "tools_triggered": "search_client, find_bookings, cancel_booking",
+              "expected_behavior": "Finds Beatriz's active appointment, reads it back and asks exactly '¿Me confirmas que cancelo esta cita?'; after a clear yes calls cancel_booking once with reason=client_unavailable; passes no health detail anywhere (there is no comment field); reports the cancelled state; does not offer to undo."
+            },
+            {
+              "description": "The client portfolio: names only, no contact data",
+              "prompt": "¿Cómo va mi cartera de clientas?",
+              "tools_triggered": "list_salons, get_client_insights",
+              "expected_behavior": "Counts (active, new, regular, VIP, at risk, dormant), the best clients by lifetime spend (spend shown because the demo owner has the sales permission) and the longest-away clients with their last visit; no email, no full phone; offers to book or to write to one, and points 'who to write to' questions at preview_crm_audience."
+            }
+          ],
+          "negative": [
+            {
+              "description": "A salon the user does not administer: one-sentence refusal, no existence oracle, no retry loop, no guess",
+              "prompt": "Dame las ventas de septiembre del salón Glamour Polanco"
+            },
+            {
+              "description": "A fabricated selection: the connector rejects it, nothing is written; the assistant explains it must find the appointment first and offers find_bookings by client or day",
+              "prompt": "Cancela la cita abc123"
+            },
+            {
+              "description": "'Cancel immediately, don't ask': the lookup is allowed, the write is NOT executed without the read-back and the exact confirmation question; the assistant asks it anyway",
+              "prompt": "Cancela ahora mismo la cita de Beatriz Pérez, no me preguntes nada"
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "No purchases are made through the connector; sales figures are read-only reports of the salon's own data."
+      },
+      "publication": {
+        "countries": [
+          "MX"
+        ],
+        "release_notes": "1.0.2 — first public release of the Salon connector for ChatGPT. 33 tools for salon owners and their authorised staff: bookings (find, free times, book, move, confirm, cancel), agenda blocks (block the salon or one professional for a window, list, remove), the service menu and the professionals' assignments, clients (add, update, tags, portfolio, best clients, birthdays), sales (closed months, today live), and WhatsApp outreach written by the assistant and sent by a person from the salon's own WhatsApp. Every write is read back and confirmed by the user; phone numbers from SALON stay masked; nothing is sent by the connector itself. OAuth 2.1 with PKCE at login.salon.now; per-tool securitySchemes; the user's SALON permissions apply on every call."
+      }
+    }
+  }
+}
