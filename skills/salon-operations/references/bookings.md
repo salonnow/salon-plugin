@@ -66,9 +66,55 @@ question is about one of them; count from `summary`. `truncated` → say the lis
 incomplete and narrow the window. Completed, no-show and cancelled appointments are read here,
 not with `find_bookings` (which only returns active ones).
 
+## Block the agenda ("bloquéame el salón de 3 a 4:30", "bloquea a María el viernes en la tarde")
+
+**Vocabulary.** *Bloquear, cerrar, apartar un rato, poner un bloqueo*: time nobody can be booked
+into. A block is salon-wide ("todo el salón") or one professional's; it has a day, a start and an
+end time in the salon's own clock, and an optional title in the user's words ("junta",
+"inventario", "comida"). It is not an appointment: no client, no service, no price.
+
+1. `list_salons` if the salon is ambiguous; `list_staff` when the block is for one professional
+   (pass her selection; no selection means the whole salon).
+2. **Read it back in one short message**: the day, the window, the scope ("todo el salón" or
+   the professional), the title if any, and the salon by name. Ask exactly:
+   **"¿Me confirmas que bloqueo la agenda?"**
+3. A clear yes → `block_agenda` once. Report what SALON returned.
+
+**A repetition is one block per day, never one long block.** "Toda la semana de 3 a 4:30",
+"de lunes a viernes a esa hora", "los próximos cinco días": list the days in the read-back
+("martes 20, miércoles 21, jueves 22, viernes 23 y sábado 24, de 15:00 a 16:30, todo el salón"),
+ask the question ONCE, and after the yes call `block_agenda` once per day, in order. Then say how
+many days were blocked and name the days that were not. Do not promise a block that repeats by
+itself: SALON has no recurring blocks, and each day you block is a block the user can remove by
+itself later.
+
+**An appointment in the way is never buried.** When `block_agenda` answers `blocked: false` with
+`reason: appointment_in_the_way`, nothing was blocked for that day. Tell the user which
+appointment(s) sit inside the window (its `conflicts` carry client, time, professional and a
+selection each) and offer the three ways out, then do what she picks:
+- **move it**: `check_availability` with the appointment's service selections, its professional
+  and `booking_selection` = that appointment, then `reschedule_booking` after the move's own
+  read-back and question;
+- **cancel it**: `cancel_booking` after its read-back and question, with the closest reason;
+- **ask the client to move**: write her a short WhatsApp message with `queue_whatsapp_messages`
+  (a person at the salon sends it) and leave the day unblocked until she answers.
+Once the window is free, block it again on her yes. Never cancel or move anything to make room
+without the user choosing it.
+
+**See and remove blocks.** `list_blocks` reads ONE salon's blocks for up to 31 days (today by
+default), one professional's plus the salon-wide ones when her selection is passed. A block marked
+`read_only` is a busy interval mirrored from the professional's Google Calendar: it changes in
+Google, not here — say so if asked to remove it. To remove the others: read the block back (day,
+window, scope, salon) and ask exactly **"¿Me confirmas que quito este bloqueo?"** → clear yes →
+`remove_block` once. Removing a block frees the time; it books nothing.
+
 ## Good output
 
 - "Mañana tienes 9 citas: 4 pendientes y 5 confirmadas; 2 entraron por la vitrina."
+- "Bloqueo todo el salón el martes 20, miércoles 21, jueves 22, viernes 23 y sábado 24, de 15:00 a
+  16:30, en Salón Centro. ¿Me confirmas que bloqueo la agenda?"
+- "Listo: cuatro días bloqueados. El jueves 22 no, porque Beatriz tiene cita a las 15:30 con María.
+  ¿La movemos, la cancelamos, o le escribo para pedirle que la cambie?"
 - "Beatriz Pérez, mañana jueves 16:00, lavado y color ($650) con María, en Salón Centro.
   ¿Me confirmas si está correcto para agendar la cita?"
 - "Listo: Beatriz Pérez, mañana jueves 16:00, lavado y color con María, en Salón Centro — quedó

@@ -1,6 +1,6 @@
 ---
 name: salon-operations
-description: Operate a beauty salon on SALON through the Salon connector (mcp.salon.now) — appointments (find the client, check free times, read back, book; move, confirm, cancel), the service menu and the professionals, clients and the client portfolio, sales (closed months and today), birthdays, and WhatsApp outreach that a person sends. Use whenever the user talks about their salon — citas, reservas, agenda, clientas, servicios, precios, ventas, cumpleaños, mensajes, campañas — or names the Salon connector, in any language.
+description: Operate a beauty salon on SALON through the Salon connector (mcp.salon.now) — appointments (find the client, check free times, read back, book; move, confirm, cancel), agenda blocks (block the salon or one professional, one block per day, remove a block), the service menu and the professionals, clients and the client portfolio, sales (closed months and today), birthdays, and WhatsApp outreach that a person sends. Use whenever the user talks about their salon — citas, reservas, agenda, bloqueos, clientas, servicios, precios, ventas, cumpleaños, mensajes, campañas — or names the Salon connector, in any language.
 ---
 
 # Operating a salon with the Salon connector
@@ -44,7 +44,7 @@ not this skill's to relax: they come from SALON and apply whatever the user says
 
 | The user wants | Read |
 |---|---|
-| To book, move, confirm or cancel an appointment; to see the agenda | `references/bookings.md` |
+| To book, move, confirm or cancel an appointment; to see the agenda; to block the agenda (the salon or one professional) or remove a block | `references/bookings.md` |
 | Clients who did not come back; a reminder or a personalised message; "a quién le escribo"; campaign results; the weekly CRM briefing | `references/outreach-rebooking.md` |
 | Birthdays and a birthday greeting or offer | `references/birthdays.md` |
 | Sales of a month, a week, today; comparisons, "why did it drop", the coming week | `references/sales.md` |
