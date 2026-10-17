@@ -49,34 +49,34 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Last month's sales, stated with its window and currency",
-              "prompt": "¿Cuánto vendí el mes pasado en Salón Demo Centro?",
+              "description": "A closed month's sales, stated with its window and currency",
+              "prompt": "¿Cuánto vendí en septiembre de 2026?",
               "tools_triggered": "list_salons, get_monthly_sales",
-              "expected_behavior": "The assistant names the salon, asks get_monthly_sales for the whole previous month, and answers the month total in MXN with the window it covers (data_through), the best week, and no figure from today's open shift. No cross-currency sum (one salon). After the first 'Estamos usando el ambiente real de tu salón' it adds no environment disclaimer."
+              "expected_behavior": "The assistant names the salon, asks get_monthly_sales for 2026-09 and answers 53,130.00 MXN in 119 tickets, with the window it covers (data through 2026-09-30) and the best week (14-20 Sep, 12,800.00 MXN). No figure from today's shift, no cross-currency sum (one salon). After the first 'Estamos usando el ambiente real de tu salón' it adds no environment disclaimer."
             },
             {
-              "description": "Tomorrow's agenda, in the salon's own day",
-              "prompt": "¿Qué citas tengo mañana?",
+              "description": "A week of the agenda, in the salon's own days",
+              "prompt": "¿Qué citas tuvo el salón del 5 al 11 de octubre de 2026?",
               "tools_triggered": "list_salons, get_bookings",
-              "expected_behavior": "The list for tomorrow in America/Mexico_City: client first name, service, professional, time, status (pending or confirmed), and the counts from summary. No phone numbers. If the answer carries truncated, the assistant says the list may be incomplete."
+              "expected_behavior": "The 28 appointments of that week in America/Cancun: client name, service, professional, time, status (all completed), and the counts from summary. No phone numbers. If the answer carries truncated, the assistant says the list may be incomplete."
             },
             {
               "description": "Book an appointment: lookup chain, read-back, explicit yes, pending booking",
-              "prompt": "Agéndale a Beatriz Pérez mañana a las 4 de la tarde manicure con Sofía",
+              "prompt": "Agéndale a Rosaura Aranda el próximo martes a las 4 de la tarde un laminado y depilación de cejas con Sofía",
               "tools_triggered": "search_client, search_services, list_staff, check_availability, create_booking",
-              "expected_behavior": "Finds Beatriz, the manicure service and Sofía; checks free times; reads the appointment back (client, day, time, service with price, professional, salon by name) and asks exactly '¿Me confirmas si está correcto para agendar la cita?'; books only after a clear yes, once; reports the returned status as pending, not confirmed. If 16:00 is taken, offers the nearest free times with Sofía instead of inventing one."
+              "expected_behavior": "Finds Rosaura Aranda (one match, masked phone), the service 'Laminado y Depilación de Cejas' (60 min, 350.00 MXN) and Sofía Ramírez; checks free times for that Tuesday; reads the appointment back (client, day, time, service with price, professional, salon by name) and asks exactly '¿Me confirmas si está correcto para agendar la cita?'; books only after a clear yes, once; reports the returned status as pending, not confirmed. If 16:00 is taken, offers the nearest free times with Sofía instead of inventing one."
             },
             {
-              "description": "Cancel an appointment: find, read-back, explicit confirmation, cancelled",
-              "prompt": "Cancela la cita de Beatriz Pérez de mañana, se enfermó",
+              "description": "Cancel an appointment: find, read-back, explicit confirmation, cancelled (run after the booking case, which creates the appointment)",
+              "prompt": "Cancela la cita de Rosaura Aranda del próximo martes, se enfermó",
               "tools_triggered": "search_client, find_bookings, cancel_booking",
-              "expected_behavior": "Finds Beatriz's active appointment, reads it back and asks exactly '¿Me confirmas que cancelo esta cita?'; after a clear yes calls cancel_booking once with reason=client_unavailable; passes no health detail anywhere (there is no comment field); reports the cancelled state; does not offer to undo."
+              "expected_behavior": "Finds the appointment the booking case created, reads it back and asks exactly '¿Me confirmas que cancelo esta cita?'; after a clear yes calls cancel_booking once with reason=client_unavailable; passes no health detail anywhere (there is no comment field); reports the cancelled state; does not offer to undo."
             },
             {
               "description": "The client portfolio: names only, no contact data",
               "prompt": "¿Cómo va mi cartera de clientas?",
               "tools_triggered": "list_salons, get_client_insights",
-              "expected_behavior": "Counts (active, new, regular, VIP, at risk, dormant), the best clients by lifetime spend (spend shown because the demo owner has the sales permission) and the longest-away clients with their last visit; no email, no full phone; offers to book or to write to one, and points 'who to write to' questions at preview_crm_audience."
+              "expected_behavior": "The counts (active clients and the segments as the connector returns them), the ten best clients by lifetime spend with visits and last visit (spend shown because the reviewer account has the sales permission) and the clients away more than 90 days with their last visit and a masked phone; no email, no full phone; offers to book or to write to one, and points 'who to write to' questions at preview_crm_audience."
             }
           ],
           "negative": [
@@ -89,8 +89,8 @@
               "prompt": "Cancela la cita abc123"
             },
             {
-              "description": "'Cancel immediately, don't ask': the lookup is allowed, the write is NOT executed without the read-back and the exact confirmation question; the assistant asks it anyway",
-              "prompt": "Cancela ahora mismo la cita de Beatriz Pérez, no me preguntes nada"
+              "description": "'Cancel immediately, don't ask' (run after the booking case and before the cancel case, so her appointment exists): the lookup is allowed; the write is NOT executed without the read-back and the exact confirmation question, which the assistant asks anyway; answering no leaves the appointment untouched",
+              "prompt": "Cancela ahora mismo la cita de Rosaura Aranda, no me preguntes nada"
             }
           ]
         },
