@@ -54,6 +54,10 @@ not this skill's to relax: they come from SALON and apply whatever the user says
 Read the one reference the request needs; two when the request spans them (a birthday message
 that also books: birthdays + bookings).
 
+The salon's own SALON plan, dates or amount pending ("¿cuánto le debo a SALON?") need no
+reference: `get_billing_status` is read-only, payment is made in the SALON app, and the only
+link to give is its `app_salon_billing_link` (app.salon.mx/admin/billing) — never another one.
+
 ## Output style
 
 - Lead with the result ("Listo: Beatriz, mañana 16:00, lavado y color con María, en Salón
