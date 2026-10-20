@@ -23,17 +23,20 @@
       "interface": {
         "displayName": "Salon",
         "shortDescription": "Tu salón de belleza, por voz",
-        "longDescription": "Salon conecta tu salón de belleza en SALON con ChatGPT. Pregunta por voz o por texto cuánto vendiste el mes pasado y cuánto llevas hoy, qué citas tienes mañana, quiénes son tus mejores clientas y quién cumple años esta semana. Agenda, mueve, confirma y cancela citas; agrega o actualiza clientas; cambia precios y duraciones de tu menú; asigna servicios a tus profesionales. Pide mensajes de WhatsApp personalizados para clientas que no han vuelto o para huecos en la agenda: el asistente los escribe y una persona de tu salón los envía desde el WhatsApp del salón — el conector nunca envía nada por sí mismo. Cada cambio se te lee de vuelta y ocurre solo cuando dices que sí. Los teléfonos que vienen de SALON se muestran enmascarados. Funciona con tu cuenta de SALON y con los permisos que tu salón ya te dio. Requiere una cuenta de SALON (salon.mx). Soporte: soporte@salon.now.",
+        "longDescription": "Salon conecta tu salón de belleza en SALON con ChatGPT. Pregunta por voz o por texto cuánto vendiste el mes pasado y cuánto llevas hoy, qué citas tienes mañana, quiénes son tus mejores clientas y quién cumple años esta semana. Agenda, mueve, confirma y cancela citas; bloquea horas de la agenda del salón o de una profesional; agrega o actualiza clientas; cambia precios y duraciones de tu menú; asigna servicios a tus profesionales. Pide mensajes de WhatsApp personalizados para clientas que no han vuelto o para huecos en la agenda: el asistente los escribe y una persona de tu salón los envía desde el WhatsApp del salón — el conector nunca envía nada por sí mismo. Consulta también el estado de cuenta de tu suscripción a SALON: plan, hasta cuándo está pagado y cuándo toca pagar; el pago se hace en la app de SALON, nunca por el conector. Cada cambio se te lee de vuelta y ocurre solo cuando dices que sí. Los teléfonos que vienen de SALON se muestran enmascarados. Funciona con tu cuenta de SALON y con los permisos que tu salón ya te dio. Requiere una cuenta de SALON (salon.mx). Soporte: soporte@salon.now.",
         "developerName": "SALON NOW INC",
         "category": "Productivity",
         "capabilities": [
           "Citas y reservas: agenda, horas libres, agendar, mover, confirmar, cancelar",
+          "Bloqueos de agenda: del salón o de una profesional",
           "Menú de servicios y asignación de profesionales",
           "Clientes: alta, cambios, etiquetas, cartera, mejores clientes, cumpleaños",
           "Ventas: meses cerrados y el día de hoy en vivo",
-          "Mensajes de WhatsApp escritos por el asistente y enviados por una persona del salón"
+          "Mensajes de WhatsApp escritos por el asistente y enviados por una persona del salón",
+          "Estado de cuenta de la suscripción a SALON, solo lectura"
         ],
         "websiteURL": "https://salon.mx",
+        "supportURL": "https://salon.mx/conector",
         "privacyPolicyURL": "https://legal.salon.now/legal/tyc-usuarios/base/1.0.002?lang=es",
         "termsOfServiceURL": "https://legal.salon.now/legal/tyc-salones/base/1.0.002?lang=es",
         "defaultPrompt": [
