@@ -97,6 +97,7 @@
             }
           ]
         },
+        "demo_recording_url": "https://jam.dev/v/2265389a-61d1-437a-8f51-d4bc3dc62921",
         "commerce": false,
         "commerce_description": "No purchases are made through the connector; sales figures are read-only reports of the salon's own data."
       },
