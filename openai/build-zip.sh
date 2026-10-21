@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Build the OpenAI plugin ZIP: this folder's manifest, MCP config and assets, plus the ONE
-# skill set that lives at the repo root (skills/), so the skill is never maintained twice.
+# skill set, which lives in the Claude plugin (claude/skills/), so it is never maintained twice.
 #
 # Usage: openai/build-zip.sh            → dist/salon-openai-<version>.zip
 #
-# Refuses when the Claude manifest (.claude-plugin/plugin.json) and the OpenAI manifest
+# Refuses when the Claude manifest (claude/.claude-plugin/plugin.json) and the OpenAI manifest
 # (openai/plugin.json) disagree on the version: one public version, bumped together with the
 # connector's CONNECTOR_VERSION. Reviewer credentials never go in the ZIP (OpenAI rejects
 # test_credentials and reviewer_instructions there); they are typed in the dashboard.
@@ -12,16 +12,17 @@ set -euo pipefail
 
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 openai_dir="$repo/openai"
+claude_dir="$repo/claude"
 dist="$repo/dist"
 
 read_version() {
   python3 -I -c 'import json, sys; print(json.load(open(sys.argv[1]))["version"])' "$1"
 }
 
-claude_version="$(read_version "$repo/.claude-plugin/plugin.json")"
+claude_version="$(read_version "$claude_dir/.claude-plugin/plugin.json")"
 openai_version="$(read_version "$openai_dir/plugin.json")"
 if [ "$claude_version" != "$openai_version" ]; then
-  echo "build-zip: version mismatch — .claude-plugin/plugin.json says $claude_version, openai/plugin.json says $openai_version" >&2
+  echo "build-zip: version mismatch — claude/.claude-plugin/plugin.json says $claude_version, openai/plugin.json says $openai_version" >&2
   echo "build-zip: bump both (and CONNECTOR_VERSION in salon-mcp) together, then retry" >&2
   exit 2
 fi
@@ -30,7 +31,7 @@ fi
 for asset in "$openai_dir/assets/logo.png" "$openai_dir/assets/icon.png"; do
   [ -f "$asset" ] || { echo "build-zip: missing $asset" >&2; exit 2; }
 done
-[ -f "$repo/skills/salon-operations/SKILL.md" ] || { echo "build-zip: missing root skills/salon-operations/SKILL.md" >&2; exit 2; }
+[ -f "$claude_dir/skills/salon-operations/SKILL.md" ] || { echo "build-zip: missing claude/skills/salon-operations/SKILL.md" >&2; exit 2; }
 # The archive declares Apache-2.0 and carries the skill, so the licence text and the trademark
 # notice travel with it (NOTICE: SALON and SALON NOW are not licensed with the plugin).
 for legal in "$repo/LICENSE" "$repo/NOTICE"; do
@@ -45,7 +46,7 @@ stage="$(mktemp -d)"
 trap 'rm -rf "$stage"' EXIT
 cp "$openai_dir/plugin.json" "$openai_dir/mcp.json" "$repo/LICENSE" "$repo/NOTICE" "$stage/"
 cp -R "$openai_dir/assets" "$stage/assets"
-cp -R "$repo/skills" "$stage/skills"
+cp -R "$claude_dir/skills" "$stage/skills"
 find "$stage" -name '.DS_Store' -delete
 
 mkdir -p "$dist"
