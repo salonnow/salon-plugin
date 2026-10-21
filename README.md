@@ -1,10 +1,11 @@
 # Salon — Claude plugin
 
 Run your beauty salon on **SALON** from Claude, by text or by voice: book, move, confirm and
-cancel appointments; keep the menu and the professionals' assignments; add and update clients
-and read the client portfolio; see closed months and today's sales; and write WhatsApp messages
-to clients that a person at the salon then sends from the salon's own WhatsApp. Spanish-first,
-built for Mexican salons.
+cancel appointments; block hours of the agenda for the salon or one professional; keep the menu
+and the professionals' assignments; add and update clients and read the client portfolio; see
+closed months and today's sales; check the salon's own SALON subscription status (read-only —
+payment happens in the SALON app); and write WhatsApp messages to clients that a person at the
+salon then sends from the salon's own WhatsApp. Spanish-first, built for Mexican salons.
 
 The plugin bundles two things:
 
@@ -38,8 +39,9 @@ decided by the salon's owner in the SALON app.
   what makes it open the chat), and those links are part of your conversation too.
 - The connector never sends a message by itself: a WhatsApp message is left in the SALON app's
   queue (or handed to you as a link) and a person sends it.
-- Every write — a booking, a cancellation, a menu change, a new client, a queued message — is
-  read back to you and happens only after you say yes.
+- Every write — a booking, a cancellation, a block, a menu change, a new client, a queued
+  message — is read back to you and happens only after you say yes. Asking it not to ask
+  ("no me preguntes") does not skip that question.
 
 ## The OpenAI package (`openai/`)
 
@@ -52,8 +54,8 @@ registration) and `assets/` (the SALON mark). The skill is **not** copied there:
 at the root `skills/`, and `openai/build-zip.sh` assembles `dist/salon-openai-<version>.zip`
 from the folder plus the root skill. The script refuses when the two manifests disagree on the
 version — one public version (the connector's `CONNECTOR_VERSION`, this manifest, the OpenAI
-manifest), bumped together. Reviewer credentials and the demo video URL are typed in OpenAI's
-dashboard; the ZIP never carries credentials.
+manifest), bumped together. The demo video URL travels in `review.demo_recording_url`;
+reviewer credentials are typed in OpenAI's dashboard, and the ZIP never carries them.
 
 ## Support
 
