@@ -1,13 +1,16 @@
 {
   "name": "salon",
   "version": "1.0.4",
-  "description": "Run your beauty salon on SALON from Claude: bookings, the menu and the professionals, clients and their portfolio, sales, and WhatsApp outreach that a person sends — through the Salon connector (mcp.salon.now).",
+  "description": "Opera tu salón de belleza en SALON desde Claude: citas, bloqueos de agenda, menú, clientas, ventas, estado de cuenta y mensajes de WhatsApp que envía una persona — con el conector Salon (mcp.salon.now).",
   "author": {
     "name": "SALON NOW INC",
     "url": "https://salon.mx"
   },
   "homepage": "https://salon.mx",
   "privacyPolicyUrl": "https://legal.salon.now/legal/tyc-usuarios/base/1.0.002?lang=es",
+  "termsOfServiceUrl": "https://legal.salon.now/legal/tyc-salones/base/1.0.002?lang=es",
+  "documentationUrl": "https://salon.mx/conector",
+  "supportUrl": "https://salon.mx/conector",
   "repository": "https://github.com/salonnow/salon-plugin",
   "license": "Apache-2.0",
   "keywords": ["salon", "beauty", "bookings", "clients", "whatsapp", "mcp"]
