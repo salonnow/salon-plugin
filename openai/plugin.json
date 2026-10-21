@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "salon",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Run your beauty salon on SALON from ChatGPT: bookings, the menu and the professionals, clients and their portfolio, sales, and WhatsApp outreach that a person sends — through the Salon connector (mcp.salon.now).",
   "author": {
     "name": "SALON NOW INC",
@@ -104,7 +104,7 @@
         "countries": [
           "MX"
         ],
-        "release_notes": "1.0.3 — first public release of the Salon connector for ChatGPT. 34 tools for salon owners and their authorised staff: bookings (find, free times, book, move, confirm, cancel), agenda blocks (block the salon or one professional for a window, list, remove), the service menu and the professionals' assignments, clients (add, update, tags, portfolio, best clients, birthdays), sales (closed months, today live), WhatsApp outreach written by the assistant and sent by a person from the salon's own WhatsApp, and the salon's own SALON subscription status (plan, dates, amount pending) — read-only; payment is made in the SALON app, never through the connector. Every write is read back and confirmed by the user; phone numbers from SALON stay masked; nothing is sent by the connector itself. OAuth 2.1 with PKCE at login.salon.now; per-tool securitySchemes; the user's SALON permissions apply on every call."
+        "release_notes": "1.0.4 — first public release of the Salon connector for ChatGPT. 34 tools for salon owners and their authorised staff: bookings (find, free times, book, move, confirm, cancel), agenda blocks (block the salon or one professional for a window, list, remove), the service menu and the professionals' assignments, clients (add, update, tags, portfolio, best clients, birthdays), sales (closed months, today live), WhatsApp outreach written by the assistant and sent by a person from the salon's own WhatsApp, and the salon's own SALON subscription status (plan, dates, amount pending) — read-only; payment is made in the SALON app, never through the connector. Every write is read back and confirmed by the user; phone numbers from SALON stay masked; nothing is sent by the connector itself. OAuth 2.1 with PKCE at login.salon.now; per-tool securitySchemes; the user's SALON permissions apply on every call."
       }
     }
   }
