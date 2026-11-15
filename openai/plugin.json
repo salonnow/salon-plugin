@@ -23,7 +23,7 @@
       "interface": {
         "displayName": "Salon",
         "shortDescription": "Tu salón de belleza, por voz",
-        "longDescription": "Salon conecta tu salón de belleza en SALON con ChatGPT. Pregunta por voz o por texto cuánto vendiste el mes pasado y cuánto llevas hoy, qué citas tienes mañana, quiénes son tus mejores clientas y quién cumple años esta semana. Agenda, mueve, confirma y cancela citas; bloquea horas de la agenda del salón o de una profesional; agrega o actualiza clientas; cambia precios y duraciones de tu menú; asigna servicios a tus profesionales. Pide mensajes de WhatsApp personalizados para clientas que no han vuelto o para huecos en la agenda: el asistente los escribe y una persona de tu salón los envía desde el WhatsApp del salón — el conector nunca envía nada por sí mismo. Consulta también el estado de cuenta de tu suscripción a SALON: plan, hasta cuándo está pagado y cuándo toca pagar; el pago se hace en la app de SALON, nunca por el conector. Cada cambio se te lee de vuelta y ocurre solo cuando dices que sí. Los teléfonos que vienen de SALON se muestran enmascarados. Funciona con tu cuenta de SALON y con los permisos que tu salón ya te dio. Requiere una cuenta de SALON (salon.mx). Soporte: soporte@salon.now.",
+        "longDescription": "Salon conecta tu salón de belleza en SALON con ChatGPT. Pregunta por voz o por texto cuánto vendiste el mes pasado y cuánto llevas hoy, qué citas tienes mañana, quiénes son tus mejores clientas y quién cumple años esta semana. Agenda, mueve, confirma y cancela citas; bloquea horas de la agenda del salón o de una profesional; agrega o actualiza clientas; cambia precios y duraciones de tu menú; asigna servicios a tus profesionales. Pide mensajes de WhatsApp personalizados para clientas que no han vuelto o para huecos en la agenda: el asistente los escribe y una persona de tu salón los envía desde el WhatsApp del salón — el conector nunca envía nada por sí mismo. Consulta también el estado de tu cuenta de SALON, solo lectura. Cada cambio se te lee de vuelta y ocurre solo cuando dices que sí. Los teléfonos que vienen de SALON se muestran enmascarados. Funciona con tu cuenta de SALON y con los permisos que tu salón ya te dio. Requiere una cuenta de SALON (salon.mx). Soporte: soporte@salon.now.",
         "developerName": "SALON NOW INC",
         "category": "Productivity",
         "capabilities": [
@@ -33,7 +33,7 @@
           "Clientes: alta, cambios, etiquetas, cartera, mejores clientes, cumpleaños",
           "Ventas: meses cerrados y el día de hoy en vivo",
           "Mensajes de WhatsApp escritos por el asistente y enviados por una persona del salón",
-          "Estado de cuenta de la suscripción a SALON, solo lectura"
+          "Estado de tu cuenta de SALON, solo lectura"
         ],
         "websiteURL": "https://salon.mx",
         "supportURL": "https://salon.mx/conector",
@@ -79,7 +79,7 @@
               "description": "The best clients: lifetime figures, no contact data",
               "prompt": "¿Quiénes son mis mejores clientas?",
               "tools_triggered": "list_salons, rank_clients",
-              "expected_behavior": "Up to ten clients ranked by LIFETIME spend, said to be lifetime and not this month's: María Macias first (2,220.00 MXN, 3 visits, last visit 2026-09-04), then Rosaura Aranda and Melisa Fuentes, each with visits and last visit (spend shown because the reviewer account has the sales permission). No phone, no email. Offers to book one of them."
+              "expected_behavior": "Up to ten clients ranked by LIFETIME spend, said to be lifetime and not this month's: the first five are tied at 2,340.00 MXN with 3 visits each (NANY TAMAYO, KARLA GARCIA, Andrea Briseño, VIVIANA SANCHEZ and Yareli Ponce, in any order), then María Macias (2,220.00 MXN, 3 visits, last visit 2026-09-04), each with visits and last visit (spend shown because the reviewer account has the sales permission). No phone, no email. Offers to book one of them."
             }
           ],
           "negative": [
